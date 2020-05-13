@@ -134,6 +134,11 @@ const urls = {
         url: '/api/company/updateUser'
     },
 
+    // 企业管理-- 模糊搜索企业
+    fuzzyCompanyApi: {
+        url: '/api/company/searchCompany'
+    },
+
     // 账户余额- 企业账户余额
     companyAccountBalanceApi: {
         url: '/api/wallet/balance'
@@ -146,8 +151,12 @@ const urls = {
 
     // 设备管理--添加设备
     addDeviceApi: {
-        url: '/api/device/add'
+        url: '/api/device/addServer'
     },
+    // // 设备管理--添加设备
+    // addDeviceApi: {
+    //     url: '/api/device/add'
+    // },
 
     // 设备管理--设备数据列表
     deviceListDataApi: {
@@ -161,8 +170,12 @@ const urls = {
 
     // 设备管理--设备列表
     allDeviceListApi: {
-        url: '/api/device/list'
+        url: '/api/device/listServer'
     },
+    // // 设备管理--设备列表
+    // allDeviceListApi: {
+    //     url: '/api/device/list'
+    // },
 
     // 设备管理--SN查询设备
     deviceSnQueryApi: {
@@ -171,7 +184,7 @@ const urls = {
 
     // 设备管理--模糊查询
     terminalIdQueryApi: {
-        url: '/api/device/search'
+        url: '/api/device/searchServer'
     },
 
     // 设备管理--设备分类
@@ -255,10 +268,14 @@ const urls = {
         url: '/api/order/buyFlow'
     },
 
-    // 订单管理-企业流量订单列表
+    // 订单管理-企业流量订单列表 (管理端)
     orderCompanyFlowListApi: {
-        url: '/api/order/companyFlowList'
+        url: '/api/order/companyFlowListServer'
     },
+    // 订单管理-企业流量订单列表 (客户端)
+    // orderCompanyFlowListApi: {
+    //     url: '/api/order/companyFlowList'
+    // },
 
     // 订单管理-设备流量订单列表
     orderDeviceFlowListApi: {

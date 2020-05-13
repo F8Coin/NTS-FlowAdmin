@@ -17,9 +17,20 @@
                 style="margin:10px;width:auto;"
                 >
 
+                
+
                 <el-form-item prop='companyName' label="企业名称:" v-if="isSatForm">
-                    <el-input type="text" v-model="form.companyName" placeholder="请输入企业名称"></el-input>
+                     <el-autocomplete
+                        v-model="form.companyName"
+                        :fetch-suggestions="querySearchAsync"
+                        placeholder="请输入企业名称"
+                        @select="handleSelect"
+                    ></el-autocomplete>
                 </el-form-item>
+
+                <!-- <el-form-item prop='companyName' label="企业名称:" v-if="isSatForm">
+                    <el-input type="text" v-model="form.companyName" placeholder="请输入企业名称"></el-input>
+                </el-form-item> -->
 
                 <el-form-item prop='addTypeId' label="分类：">  
                     <el-select v-model="form.addTypeId" placeholder="请选择添加类型" class="dropDown" @change="selectAddTypeId(form.addTypeId)">
@@ -128,6 +139,8 @@
                         text='企业名称';
                     }else if(rule.field == "account"){
                         text='企业主账号';
+                    }else if(rule.field == "companyId"){
+                        text= "企业名称"
                     }
                     callback(new Error(text+'不能为空'));
                 }else {
@@ -146,6 +159,7 @@
                 module: '',
                 terminal: '',
                 companyName:'',
+                companyId: '',
                 account:'',
                 satModuleId: '',
                 Iot_ICCID: '',
@@ -198,7 +212,7 @@
       },
 
       mounted(){
-          
+
       },
 
       methods:{
@@ -258,7 +272,8 @@
                         deviceTypeId: this.form.terminalTypeId ,
                         satelliteModule: this.form.satModuleId,
                         cardIccId: this.form.Iot_ICCID,
-                        companyName: this.form.companyName
+                        companyName: this.form.companyName,
+                        companyId: this.form.companyId
                     }
                     // 添加设备
                     let carrierId= this.form.satCarrierId;
@@ -343,7 +358,45 @@
             }else {
                 this.showMessage('error',res.data.msg);
             }
-        }   
+        },
+        
+        // 企业管理 -- 模糊搜索企业
+        async fuzzyCompany(string,func){
+            let res = await api.fuzzyCompanyFun({"search":string});
+            if(res.data.code === 0) {
+                // return this.filterCompanyId(res.data.rows);
+                if(res.data.rows && res.data.rows.length>0){
+                   func(this.filterCompanyData(res.data.rows))
+                }else {
+                    // this.showMessage('waring','暂无数据');
+                    return [];
+                }
+            }else {
+                this.showMessage('error',res.data.msg);
+            }
+        },
+
+        querySearchAsync(queryString,callback) {   
+            this.fuzzyCompany(queryString,callback);
+        },
+
+        handleSelect(item) {
+            this.form.companyId = item.companyId;
+            // console.log(item);
+        },
+
+        filterCompanyData(arrData){
+            var newArrData= [];
+            for (let i = 0; i < arrData.length; i++) {
+               newArrData[i]= {
+                   "value": arrData[i].name,
+                   "companyId": arrData[i].companyId
+               }
+                
+            }
+            return newArrData;
+        }
+
       }
   }
 </script>
@@ -368,6 +421,10 @@
     }
 
     .satCarrier {
+        width: 100%;
+    }
+
+    .el-autocomplete {
         width: 100%;
     }
 

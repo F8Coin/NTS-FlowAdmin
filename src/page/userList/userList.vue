@@ -26,26 +26,25 @@
                 <el-table-column
                     prop="companyName"
                     label="企业名称"
-                    width="210"
                     align='center'>
                 </el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                     prop="mainAccount"
                     label="企业主账户"
                     align='center'
                     width="120">
-                </el-table-column>
+                </el-table-column> -->
                  <el-table-column
                     prop="accountType"
                     label="账号类型"
                     align='center'
                     width="120">
                 </el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                     prop="accountBalance"
                     label="账户余额(RMB)"
                     align='center'>
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column
                     prop="contactPerson"
                     label="业务负责人"
@@ -56,7 +55,7 @@
                     prop="contactTel"
                     label="负责人电话"
                     align='center'
-                    width="130">
+                    >
                 </el-table-column>
                 <el-table-column
                     prop="contactEmail"

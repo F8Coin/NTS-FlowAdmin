@@ -13,7 +13,7 @@ const jsonUrl = (json) => {
     return arr.join('&')
 }
 
-let user = JSON.parse(localStorage.getItem("userInfo"));
+let user = JSON.parse(localStorage.getItem("userInfoAdmin"));
 if (user) {
     // axios.defaults.headers.common['token'] = user.token
     axios.defaults.headers.common['X-NTS-Token'] = user.token;
@@ -39,7 +39,8 @@ if (user) {
 
 
 const fetch = (url, data, method, header) => {
-    var user = JSON.parse(localStorage.getItem("userInfo"));
+    var user = JSON.parse(localStorage.getItem("userInfoAdmin"));
+    // console.log(localStorage.getItem("userInfoAdmin"));
     if (user) {
         // axios.defaults.headers.common['authorization'] = 'Bearer ' + user;
         axios.defaults.headers.common['X-NTS-Token'] = user.token;
@@ -189,6 +190,11 @@ const api = {}
     // 企业管理-- 修改企业用户
     api.editAccount = params => {
         return fetch(urls.editAccountApi, params, 'post')
+    }
+
+    // 企业管理-- 模糊搜索企业
+    api.fuzzyCompanyFun = params => {
+        return fetch(urls.fuzzyCompanyApi, params, 'get')
     }
     
 

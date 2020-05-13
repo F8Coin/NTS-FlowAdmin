@@ -36,7 +36,7 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column
+                <!-- <el-table-column
                     prop="mainAccount"
                     label="主账户"
                     align='center'
@@ -45,7 +45,7 @@
                     <template slot-scope="scope">
                         <span style="margin-left: 10px">{{ scope.row.mainAccount }}</span>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
 
                 <el-table-column
                     prop="deviceSn"
@@ -306,19 +306,13 @@
                 this.setTableHeight();
             }
 	   },
-        methods: {
-            showMessage(type,message){
-                this.$message({  // Element ui自带信息弹窗
-                    type: type,
-                    message: message
-                });
-			},    
+        methods: {  
 
-             setTableHeight(){
+            setTableHeight(){
                 this.$nextTick(() => {
                    this.tableHeight =  document.body.clientHeight - 300
                 })
-             },
+            },
 
             //  导出Excel
             handleDownload() {
@@ -373,7 +367,6 @@
                 }
             },
 
-
             // 根据SN查询单台设备流量使用日志
             searchFlowLog(params){ 
                 this.flowLogData.deviceSn = params.deviceSn;
@@ -393,7 +386,7 @@
                 this.handleDownload();
             },
 
-            // // 显示资金弹框
+            // 显示资金弹框
             showAddFundDialog(val){
                 // this.$store.commit('SET_DIALOG_TITLE', val)
                 this.addFundDialog.show = true;
@@ -401,7 +394,7 @@
             hideAddFundDialog(){
                 this.addFundDialog.show = false;
             },
-            // // 上下分页
+            // 上下分页
             handleCurrentChange(val){
                 if(this.flowLogData.deviceSn) {
                     this.flowLogData.pageNum = val;
@@ -412,7 +405,7 @@
                     this.satelliteUseLog(this.pageData);
                 }
             },
-            // // 每页显示多少条
+            // 每页显示多少条
             handleSizeChange(val){
                 if(this.flowLogData.deviceSn) {
                     this.flowLogData.pageSize = val;
@@ -437,7 +430,7 @@
                         companyName: arryData[i].companyName ? arryData[i].companyName : '新时空智能',
                         deviceType: arryData[i].deviceType ? arryData[i].deviceType : '-',
                         activeDate: arryData[i].activeDate ? arryData[i].activeDate : '-',
-                        deviceSn: arryData[i].subscriberId ,
+                        deviceSn: arryData[i].deviceSn ? arryData[i].deviceSn : "-" ,
                         mainAccount: arryData[i].mainAccount ? arryData[i].mainAccount : 'NTS_84782960',
                         carrier: arryData[i].carrier,
                         smsMo: arryData[i].smsMo ? arryData[i].smsMo : '0',
@@ -456,12 +449,12 @@
                 } 
                 return resData;
             },
-            // // 编辑操作方法
+            // 编辑操作方法
             onyearFlow(row){
                 this.addFundDialog.dialogRow = row;
                 this.showAddFundDialog();
             },
-            // // 删除数据
+            // 删除数据
             onDeleteMoney(row){
                 this.$confirm('确认删除该记录吗?', '提示', {
                     type: 'warning'
@@ -478,7 +471,7 @@
                 })
                 .catch(() => {})
             },
-            // // 查看详情 
+            // 查看详情 
             onFlowLog(){
                 this.addFundDialog.show= true;
             },
@@ -499,11 +492,11 @@
                 })
                 .catch(() => {})
             },
-            // // 当用户手动勾选数据行的 Checkbox 时触发的事件
+            // 当用户手动勾选数据行的 Checkbox 时触发的事件
             selectTable(val, row){
                 this.setSearchBtn(val);
             },
-            // // 用户全选checkbox时触发该事件
+            // 用户全选checkbox时触发该事件
             selectAll(val){
                  val.forEach((item) => {
                      this.rowIds.push(item.id);

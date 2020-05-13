@@ -28,7 +28,8 @@
                             <template slot="title">
                                 <div class='welcome'>
                                     <span class="name">{{$t('commons.hi')}},</span>
-                                    <span class='name avatarname'> {{ $t(`commons.${name}`)}}</span>
+                                    <!-- <span class='name avatarname'> {{ $t(`commons.${name}`)}}</span> -->
+                                    <span class='name avatarname' v-text="accountName_admine"></span>
                                 </div>
                                 <img :src="avatar" class='avatar' alt="">
                             </template>
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+    import {api} from '@/config/api'
     import { mapGetters } from "vuex";
     import * as mUtils from '@/utils/mUtils'
     import { setToken,getToken } from '@/utils/auth'
@@ -64,7 +66,8 @@
                 americaImg:americaImg,
                 menu:{
                     userBgcolor:'#f0f2f5'
-                }
+                },
+                accountName_admine: "管理员"
             }
           },
           components:{
@@ -78,7 +81,7 @@
               
           },
           created(){
-            
+              this.accountName_admine= getToken('accountName_admine');
           },
           mounted(){
           },
@@ -88,12 +91,13 @@
                         location.reload();
                     })
               },
+
              /**
              * 弹出框-修改密码或者系统设置   
              * @param {string} cmditem 弹框类型
              */
             setDialogInfo(cmditem) {
-                console.log(cmditem);
+                // console.log(cmditem);
                 switch (cmditem) {
                     case 'info':
                         this.$router.push('/user/personal');

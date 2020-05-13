@@ -34,7 +34,7 @@
                 </template>
             </el-table-column>
 
-             <el-table-column
+             <!-- <el-table-column
                 prop="mainAccount"
                 label="主账户"
                 align='center'
@@ -43,9 +43,9 @@
                 <template slot-scope="scope">
                     <span style="margin-left: 10px">{{ scope.row.mainAccount }}</span>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
 
-            <el-table-column
+            <!-- <el-table-column
                 prop="accountBalance"
                 label="账户余额"
                 align='center'
@@ -54,7 +54,7 @@
                 <template slot-scope="scope">
                     <span style="margin-left: 10px">{{ scope.row.accountBalance }}</span>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             
             <el-table-column
                 prop="iotData"

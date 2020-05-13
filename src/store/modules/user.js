@@ -42,7 +42,7 @@ const user  = {
             removeToken('Token');
             removeToken('X-NTS-Token');
             removeToken('userId');
-            localStorage.removeItem('userInfo');
+            localStorage.removeItem('userInfoAdmin');
             resolve()
           })
         })

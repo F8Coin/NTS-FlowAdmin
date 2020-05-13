@@ -33,13 +33,6 @@
                 >
             </el-table-column>
             <el-table-column
-                prop="mainAccount"
-                label="企业主账号"
-                align='center'
-                width="100"
-                >
-            </el-table-column>
-            <el-table-column
                 prop="satSN"
                 label="卫星SN"
                 align='center'
@@ -90,24 +83,27 @@
                 width="180">
             </el-table-column>
             <el-table-column
-                prop="operation"
+                prop="satActiveStatus"
                 align='center'
                 label="操作"
                 width="180">
                 <template slot-scope='scope'>
-                     <!-- <el-button 
+                     <el-button
+                        v-show="scope.row.satActiveStatus === '未激活' ? true : false " 
                         type="warning" 
                         icon='edit' 
                         size="mini"
                         @click='onActiveDevice(scope.row)'
-                    >激活</el-button> -->
-                    <el-button 
-                        type="warning" 
+                    >待激活</el-button>
+                    <el-button
+                        v-show="scope.row.satActiveStatus === '未激活' ? false : true " 
+                        type="success" 
                         icon='edit' 
                         size="mini"
                         @click='onUnSuspendDevice(scope.row)'
                     >启用</el-button>
-                    <el-button 
+                    <el-button
+                        v-show="scope.row.satActiveStatus === '未激活' ? false : true " 
                         type="danger" 
                         icon='delete' 
                         size="mini"
@@ -118,7 +114,7 @@
             </el-table-column>
             </el-table>
             <pagination :pageTotal="pageTotal" @handleCurrentChange="handleCurrentChange" @handleSizeChange="handleSizeChange"></pagination>
-            <addFundDialog  v-if="addFundDialog.show" :isShow="addFundDialog.show" :dialogRow="addFundDialog.dialogRow"  @getFundList="getMoneyList" @getTerminalList="getTerminalListData"  @closeDialog="hideAddFundDialog"></addFundDialog>
+            <addFundDialog  v-if="addFundDialog.show" :isShow="addFundDialog.show" :dialogRow="addFundDialog.dialogRow"  @getFundList="getTerminalListData" @getTerminalList="getTerminalListData"  @closeDialog="hideAddFundDialog"></addFundDialog>
         </div>
     </div>
 </template>
@@ -145,17 +141,6 @@
                 editid:'',
                 rowIds:[],
                 sortnum:0,
-                format_type_list: {
-                    0: '提现',
-                    1: '提现手续费',
-                    2: '提现锁定',
-                    3: '理财服务退出',
-                    4: '购买宜定盈',
-                    5: '充值',
-                    6: '优惠券',
-                    7: '充值礼券',
-                    8: '转账'
-                },
                 addFundDialog:{  
                     show:false,
                     dialogRow:{}
@@ -166,43 +151,6 @@
                     name:''
                 },
                 pageTotal:0,
-
-                // 用于列表筛选
-                fields: {
-                    incomePayType:{
-                        filter: {
-                            list: [{
-                                text: '提现',
-                                value: 0
-                            },{
-                                text: '提现手续费',
-                                value: 1
-                            }, {
-                                text: '提现锁定',
-                                value: 2
-                            }, {
-                                text: '理财服务退出',
-                                value: 3
-                            }, {
-                                text: '购买宜定盈',
-                                value: 4
-                            }, {
-                                text: '充值',
-                                value: 5
-                            }, {
-                                text: '优惠券',
-                                value: 6
-                            }, {
-                                text: '充值礼券',
-                                value: 7
-                            }, {
-                                text: '转账',
-                                value: 8
-                            }],
-                            multiple: true
-                        }
-                    },
-                },
 
                 exportDataList: [],
 
@@ -241,7 +189,6 @@
             ...mapGetters(['search'])
         },
       	mounted() {
-            // this.getMoneyList();
             this.getTerminalListData();
             this.setTableHeight();
             window.onresize = () => {
@@ -249,31 +196,16 @@
             }
 	   },
         methods: {
-            showMessage(type,message){
-                this.$message({  // Element ui自带信息弹窗
-                    type: type,
-                    message: message
-                });
-			},
 
              setTableHeight(){
                 this.$nextTick(() => {
                    this.tableHeight =  document.body.clientHeight - 300
                 })
              },
-            // 获取资金列表数据
-            getMoneyList(){
-                const para = Object.assign({},this.incomePayData,this.search);
-                getMoneyIncomePay(para).then(res => {
-                     this.loading = false;
-                    //  this.pageTotal = res.data.total
-                    //  this.tableData = res.data.moneyList
-                })
-            },
 
             //  模糊查询数据渲染
             terminalIdQueryData(params) {
-                console.log(params);
+                // console.log(params);
                 this.loading = false;
                 this.pageTotal = params.length;
                 this.tableData = this.filterTableData(params);
@@ -339,18 +271,6 @@
                }else{
                    return val;
                }
-            },
-
-            /**
-            * 格式化状态
-            */
-            formatterType(item) {
-                const type = parseInt(item.incomePayType);
-                return this.format_type_list[type];
-            },
-            filterType(value, item) {
-                const type = parseInt(item.incomePayType);
-                return this.format_type_list[value] == this.format_type_list[type];
             },
           
             // 启用卫星模块方法
@@ -528,7 +448,7 @@
                             message: '批量删除成功',
                             type: 'success'
                         })
-                        this.getMoneyList()
+                        this.getTerminalListData()
                     })
                 })
                 .catch(() => {})

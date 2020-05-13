@@ -57,16 +57,18 @@
                 });
 			},
 
-			async login(userInfo) {
-				let res = await api.login(userInfo);
+			async login(accountData) {
+				let res = await api.login(accountData);
 
 				if(res.data.code == 0) {
 					// this.showMessage('success', '登录成功');
 
 					// 存入用户信息
-					let userInfo= JSON.stringify(res.data.data);
-					localStorage.setItem('userInfo',userInfo);
+					let userInfoAdmin= JSON.stringify(res.data.data);
+					localStorage.setItem('userInfoAdmin',userInfoAdmin);
+					// console.log(userInfoAdmin);
 
+					setToken('accountName_admine',accountData.username)
 					setToken("Token","admin"); // permission.js根据token拉取用户信息
 					setToken("X-NTS-Token",res.data.data.token);
 					setToken("userId",res.data.data.userId);
@@ -80,8 +82,7 @@
 		    submitForm(loginForm) {
 				this.$refs[loginForm].validate((valid) => {                
 					if (valid) {
-						let userInfo = this.loginForm;
-						this.login(userInfo);
+						this.login(this.loginForm);
 					}
 				});
         	}

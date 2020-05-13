@@ -1,120 +1,5 @@
 <template>
     <div class="chinaTabsTable fillcontain">
-       <!-- <el-table 
-          :data="tableData" 
-          style="width: 100%" align='center'>
-            <el-table-column
-                prop="ID"
-                label="订单号"
-                align='center'
-                width="80">
-                <template slot-scope="scope">
-                    {{scope.$index+1}}
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="provinces"
-                label="客户"
-                align='center'
-                width="140">
-            </el-table-column>
-            <el-table-column
-                prop="orderMoney"
-                label="IMEI"
-                align='center'>
-                <template slot-scope="scope">  
-                    <span style="color:#CC0033">{{ scope.row.satelliteFlow }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="incomeMoney"
-                label="套餐名称"
-                align='center'
-                width="120">
-                <template slot-scope="scope">  
-                    <span style="color:#00d053;">{{ scope.row.satelliteCost }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="payType"
-                label="订购数量"
-                align='center'>
-            <template slot-scope="scope">
-                <span style="color:#00d053;">{{ scope.row.activeText }}</span>
-            </template>
-            </el-table-column>
-            <el-table-column
-                prop="orderPeriod"
-                label="套餐状态"
-                align='center'
-                width="120">
-                <template slot-scope="scope">
-                    <span style="color:#00d053;">{{ scope.row.operatorType }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="orderPersonConunt"
-                label="套餐总量"
-                align='center'
-                width="120">
-            </el-table-column>
-            <el-table-column
-                prop="orderYearRate"
-                label="使用率"
-                align='center'
-                width='120'
-            >
-            </el-table-column>
-            <el-table-column
-                prop="orderYearRate"
-                label="已用"
-                align='center'
-                width='120'
-            >
-            </el-table-column>
-            <el-table-column
-                prop="orderYearRate"
-                label="剩余"
-                align='center'
-                width='120'
-            >
-            </el-table-column>
-            <el-table-column
-                prop="orderYearRate"
-                label="激活时间"
-                align='center'
-                width='120'
-            >
-            </el-table-column>
-            <el-table-column
-                prop="orderYearRate"
-                label="失效时间"
-                align='center'
-                width='120'
-            >
-            </el-table-column>
-            <el-table-column
-                prop="operation"
-                align='center'
-                label="操作"
-                width="180">
-                <template slot-scope='scope'>
-                    <el-button 
-                        type="warning" 
-                        icon='edit' 
-                        size="mini"
-                        @click='onEditMoney(scope.row)'
-                    >充值</el-button>
-                    <el-button 
-                        type="danger" 
-                        icon='delete' 
-                        size="mini"
-                        @click='onDeleteMoney(scope.row,scope.$index)'
-                    >查看更多</el-button>
-                </template>
-            </el-table-column>
-        </el-table> -->
-
         <search-item @showDialog="showAddFundDialog" @searchList="getOrderList" @onBatchDelMoney="onBatchDelMoney"  @resetTableData="resetTableData" @exportData="exportData"></search-item>
         <div class="table_container">
             <el-table
@@ -176,9 +61,15 @@
                 </el-table-column> -->
                 <el-table-column
                     prop="packageName"
-                    label="套餐名称"
+                    label="套餐类型"
                     align='center'
-                    width="100">
+                    >
+                </el-table-column>
+                 <el-table-column
+                    prop="flowNumber"
+                    label="购买流量 (KB)"
+                    align='center'
+                    >
                 </el-table-column>
                 <el-table-column
                     prop="actualPrice"
@@ -187,14 +78,20 @@
                     >
                 </el-table-column>
                 <el-table-column
-                    prop="flowNumber"
-                    label="购买流量 (KB)"
+                    prop="createTime"
+                    label="订单提交时间"
                     align='center'
-                    >
+                    width="180">
                 </el-table-column>
                 <el-table-column
-                    prop="createTime"
-                    label="创建时间"
+                    prop="updateTime"
+                    label="进入到支付页面时间"
+                    align='center'
+                    width="180">
+                </el-table-column>
+                <el-table-column
+                    prop="payTime"
+                    label="支付成功的时间"
                     align='center'
                     width="180">
                 </el-table-column>
@@ -543,8 +440,10 @@
                         contactEmail: arrayData[i].contactEmail ? arrayData[i].contactEmail : '-',
                         companyAddress: arrayData[i].companyAddress ? arrayData[i].companyAddress : '-',
                         mainAccount: arrayData[i].mainAccount ? arrayData[i].mainAccount : '-',
-                        packageName: arrayData[i].plansName ? arrayData[i].plansName : '-',
+                        packageName: arrayData[i].plansName === "自定义套餐" ? "卫星-基础套餐" : arrayData[i].plansName,
                         createTime: arrayData[i].createTime ? arrayData[i].createTime : '-',
+                        updateTime: arrayData[i].updateTime ? arrayData[i].updateTime : '-',
+                        payTime: arrayData[i].payTime ? arrayData[i].payTime : '-',
                         // payStatus: this.filterPayType(arrayData[i].orderStatus) ? this.filterPayType(arrayData[i].orderStatus) : '-',
                         orderStatus: this.filterOrderType(arrayData[i].orderStatus) ? this.filterOrderType(arrayData[i].orderStatus) : '-',
                         actualPrice: arrayData[i].actualPrice ? arrayData[i].actualPrice : '-',
