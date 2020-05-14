@@ -157,7 +157,7 @@
 					// this.showMessage('success',res.data.msg);
 					this.homeData={
 						IotFlow: res.data.data.usedFlow4G ? res.data.data.usedFlow4G : '0.0' ,
-						satelliteFlow: res.data.data.usedFlowSat ? res.data.data.usedFlowSat : '0.0' ,
+						satelliteFlow: res.data.data.usedFlowSat ? (Number(res.data.data.usedFlowSat)/1024).toFixed(2) : "0.0",
 						mOrder: res.data.data.monthOrder ? res.data.data.monthOrder : '0',
 						yOrder: res.data.data.yearOrder ? res.data.data.yearOrder : '0',
 						activateSat: res.data.data.activateSat ? res.data.data.activateSat : '0',

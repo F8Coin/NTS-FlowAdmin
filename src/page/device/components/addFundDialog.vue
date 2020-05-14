@@ -368,8 +368,8 @@
                 if(res.data.rows && res.data.rows.length>0){
                    func(this.filterCompanyData(res.data.rows))
                 }else {
-                    // this.showMessage('waring','暂无数据');
                     return [];
+                    // this.showMessage('waring','暂无数据');
                 }
             }else {
                 this.showMessage('error',res.data.msg);

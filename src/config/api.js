@@ -54,7 +54,6 @@ const fetch = (url, data, method, header) => {
             }
         }
     }
-    //
     let realUrl = urls.server[process.env.NODE_ENV] + url
         // let realUrl = urls.server.development + url
     let type = method.toLowerCase()
@@ -66,7 +65,8 @@ const fetch = (url, data, method, header) => {
         // res = axios.post(realUrl, qs.stringify(data), header)  // "application/x-www-form-urlencoded
         res = axios.post(realUrl, qs.parse(data), header)  // application/json
     } else if (type === 'put') {
-        res = axios.put(realUrl, data)
+        // res = axios.put(realUrl, data)
+        res = axios.put(realUrl, qs.parse(data), header)
     }
     return res
 }

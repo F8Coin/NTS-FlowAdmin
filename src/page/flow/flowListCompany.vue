@@ -76,6 +76,16 @@
                     <span style="color:#00d053">{{ scope.row.satelliteData }} KB</span>
                 </template>
             </el-table-column>
+            <!-- <el-table-column
+                prop="satSurplusFlow"
+                label="卫星剩余可用流量"
+                align='center'
+                width="100"
+                > 
+                <template slot-scope="scope">  
+                    <span style="color:#00d053">{{ scope.row.satSurplusFlow }} KB</span>
+                </template>
+            </el-table-column> -->
             <el-table-column
                 prop="contactPerson"
                 label="业务负责人"
@@ -439,6 +449,7 @@
                         accountBalance: arrData[i].accountBalance ? arrData[i].accountBalance : '-',
                         iotData: arrData[i].cardSum ? arrData[i].cardSum : '0.0',
                         satelliteData: arrData[i].satSum ? arrData[i].satSum : '0.0',
+                        satSurplusFlow:  arrData[i].surplusFlow ? arrData[i].surplusFlow : '0.0',
                         contactPerson: arrData[i].businessLeader ? arrData[i].businessLeader : '-',
                         contactTel: arrData[i].mobile ? arrData[i].mobile : '-',
                         contactEmail: arrData[i].mailLeader ? arrData[i].mailLeader : '-',
