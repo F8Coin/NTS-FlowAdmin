@@ -52,7 +52,7 @@
 			},
       // 消息通知- 消息列表
 			async getNoticeData() {
-				let res = await api.noticeDataListC();
+				let res = await api.noticeDataListAdmin();
 				if(res.data.code == 0) {
           // this.showMessage('success',res.data.msg);
           this.logsData = res.data.rows;

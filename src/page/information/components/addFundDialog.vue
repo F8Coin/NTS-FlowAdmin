@@ -19,7 +19,7 @@
                     <el-select v-model="form.noticeType" placeholder="请选择公告类型" class="dropDown" @change="selectNoticeType(form.noticeType)">
 						<el-option
 							label="流量预警"
-							value="1"
+							value="3"
 							>
 						</el-option>
 						<!-- <el-option
@@ -34,15 +34,20 @@
                     <!-- <el-input type="text" v-model.number="form.noticePriority" placeholder="请选择公告优先级"></el-input> -->
                     <el-select v-model="form.noticePriority" placeholder="请选择公告优先级" class="dropDown" @change="selectNoticePriority(form.noticePriority)">
 						<el-option
-							label="优先级1"
+							label="紧急"
+							value="1"
+							>
+						</el-option>
+						<el-option
+							label="高"
+							value="2"
+							>
+						</el-option>
+						<el-option
+							label="普通"
 							value="3"
 							>
 						</el-option>
-						<!-- <el-option
-							label="类型2"
-							value="2"
-							>
-						</el-option> -->
 					</el-select>
                 </el-form-item>
 
@@ -191,12 +196,6 @@
 
       },
       methods:{
-            showMessage(type,message){
-                this.$message({  // Element ui自带信息弹窗
-                    type: type,
-                    message: message
-                });
-            },
 
             // 公告类型选择
             selectNoticeType(val){
@@ -232,25 +231,15 @@
                         this.addNoticeData({
                             content: this.form.noticeContent,
                             title: this.form.noticeTitle,
-                            priority: this.form.priority,
-                            noticeObjType: this.form.noticeType,
-                            userId: getToken("userId")
+                            priority: this.form.noticePriority,
+                            // noticeObjType: this.form.noticeType,
+                            // userId: getToken("userId")
                         });
                     }else {
                         this.showMessage('error', '必填选项不能为空');
                     }
                 })
             },
-
-            // onAddNoticeData(){
-            //     this.addNoticeData({
-            //         noticeObjType: 1,
-            //         priority: 3,
-            //         title: "流量预警信息标题",
-            //         content: "流量预警信息内容部分",
-            //         userId: 1,
-            //     });
-            // },
 
             // 发送公告通知消息内容
             async addNoticeData(params) {

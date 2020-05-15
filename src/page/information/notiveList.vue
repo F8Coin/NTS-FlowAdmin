@@ -45,6 +45,7 @@
                     prop="noticeContent"
                     label="消息内容"
                     align='center'
+                    width="420"
                     >
                 </el-table-column>
                  <el-table-column
@@ -127,9 +128,9 @@
                 },
 
                 noticeType: {
-                    1: "流量预警",
+                    1: "停机维护",
                     2: "流量套餐",
-                    3: "停机维护"
+                    3: "流量预警"
                 },
 
                 noticeState: {
@@ -165,13 +166,6 @@
 	   },
         methods: {
 
-            showMessage(type,message){
-                this.$message({  // Element ui自带信息弹窗
-                    type: type,
-                    message: message
-                });
-			},
-
             setTableHeight(){
                 this.$nextTick(() => {
                    this.tableHeight =  document.body.clientHeight - 300
@@ -181,9 +175,10 @@
             // 获取公告信息列表
             async getNoticeListData(params){
                 const para = Object.assign({},this.pageData,params);
-                let res= await api.noticeDataList(para);
+                let res= await api.noticeDataListAdmin(para);
                 if(res.data.code == 0) {
                     this.loading = false;
+                    this.pageTotal = res.data.total;
                     // this.showMessage('success',res.data.msg);
                     this.tableData = this.filterTableData(res.data.rows);
                 }else {

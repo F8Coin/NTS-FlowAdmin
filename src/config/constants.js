@@ -24,13 +24,13 @@ const urls = {
         url: '/api/auth/loginServer'
     },
 
-    // 消息通知- 消息列表 (客户端)
-    noticeDataListCApi: {
+    // // 消息通知- 消息列表 (客户端)
+    noticeDataListClientApi: {
         url: '/api/notice/list'
     },
 
     // 消息通知- 消息列表 (服务端)
-    noticeDataListApi: {
+    noticeDataListAdminApi: {
         url: '/api/notice/listServer'
     },
 
@@ -49,10 +49,15 @@ const urls = {
         url: '/api/notice/read'
     },
 
-    // 调试websocket-- 发送通告调试数据
+    // 消息通知- 发布公告
     addNoticeDataApi: {
-        url: '/websocket/sendNotice'
+        url: '/api/notice/sendNotice'
     },
+
+    // // 调试websocket-- 发送通告调试数据
+    // addNoticeDataApi: {
+    //     url: '/websocket/sendNotice'
+    // },
 
     // 首页- 获取4G / 卫星 每月流量使用统计
     flowMonthDataApi: {

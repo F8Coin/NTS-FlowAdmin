@@ -88,13 +88,13 @@ const api = {}
     }
 
     // 消息通知- 消息列表 (客户端)
-    api.noticeDataListC = params => {
-        return fetch(urls.noticeDataListCApi, params, 'get')
+    api.noticeDataListClient = params => {
+        return fetch(urls.noticeDataListClientApi, params, 'get')
     }
 
     // 消息通知- 消息列表 (服务端)
-    api.noticeDataList = params => {
-        return fetch(urls.noticeDataListApi, params, 'get')
+    api.noticeDataListAdmin = params => {
+        return fetch(urls.noticeDataListAdminApi, params, 'get')
     }
 
     // 消息通知- 取消发布
@@ -114,7 +114,7 @@ const api = {}
 
     // 消息通知- 发送通告调试数据
     api.addNoticeData = params => {
-        return fetch(urls.addNoticeDataApi, params, 'post')
+        return fetch(urls.addNoticeDataApi, params, 'get')
     }
 
      // 首页- 获取4G / 卫星 每月流量使用统计
